@@ -1,18 +1,20 @@
-console.log("Hello");
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
+console.log('Hello');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const config = require('./config/config');
+const { sequelize } = require('./models');
+
 
 const app = express();
-app.use(morgan('combined'))
-app.use(bodyParser.json())
-app.use(cors())
+app.use(morgan('combined'));
+app.use(bodyParser.json());
+app.use(cors());
 
-app.get('/status', (req, res)=>{
-  res.send({
-    message : "Hello World! ",
-  })
-})
+require('./routes')(app)
 
-app.listen(process.env.PORT || 9080)
+sequelize.sync({force: false}).then(() => {
+  app.listen(config.port);
+  console.log(`Server Started on port ${config.port}`);
+});
