@@ -6,13 +6,16 @@ const HistoriesController = require('./controllers/HistoriesController');
 const isAuthenticated = require('./policies/isAuthenticated');
 
 module.exports = (app) => {
+  //User Auth
   app.post('/register', AuthenticationControllerPolicy.register, AuthenticationController.register);
   app.post('/login', AuthenticationController.login);
+  //Song Paths
   app.get('/songs', SongsController.index);
   app.get('/songs/:songId', SongsController.show);
   app.put('/songs/:songId', SongsController.put);
   app.post('/songs', SongsController.post);
-
+  
+  //Bookmark Paths
   app.get('/bookmarks', isAuthenticated, BookmarksController.index);
   app.post('/bookmarks', isAuthenticated, BookmarksController.post);
   app.delete('/bookmarks/:bookmarkId', isAuthenticated, BookmarksController.remove);
