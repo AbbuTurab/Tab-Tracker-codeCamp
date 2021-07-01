@@ -6,6 +6,8 @@ const HistoriesController = require('./controllers/HistoriesController');
 const isAuthenticated = require('./policies/isAuthenticated');
 
 module.exports = (app) => {
+  
+
   //User Auth
   app.post('/register', AuthenticationControllerPolicy.register, AuthenticationController.register);
   app.post('/login', AuthenticationController.login);
