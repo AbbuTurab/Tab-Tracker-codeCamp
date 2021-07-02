@@ -17,7 +17,10 @@ require('./passport')
 require('./routes')(app)
 
 app.get('/', (req, res)=>{
-  res.send("Api is Live Now.....!")
+  res.send(`<h2>Api is Live Now.....!</h2> 
+    <h3>Possible Routes</h3>
+    <p>GET songs - /songs<p/>
+    `)
 })
 
 sequelize.sync({force: false}).then(() => {
